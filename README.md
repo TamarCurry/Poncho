@@ -3,7 +3,9 @@ WIP C# Game framework
 
 Poncho is a basic foundation for creating game frameworks.
 
-By itself, Poncho does nothing - you'll need to implement a few required interfaces in another framework of your choice and hook them into Poncho (for example, Monogame).
+The idea behind Poncho is that you can hook whatever backend into the library to handle rendering and updating your game. The most essential functions and interactions will be handled via the App static class.
+
+By itself, Poncho does nothing - you'll need to implement a few required interfaces in using another framework of your choice and hook them into Poncho (for example, Monogame).
 
 To do so, create a class that implements IGameApp. Then, pass that class or instance of that class into App.Init().
 
