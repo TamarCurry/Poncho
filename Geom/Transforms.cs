@@ -5,6 +5,9 @@ namespace Poncho.Geom
 	public class Transforms
 	{
 		private float _rotation;
+		private float _prevRotation;
+		private float _sin;
+		private float _cos;
 		public float scaleX;
 		public float scaleY;
 		public float x;
@@ -38,6 +41,7 @@ namespace Poncho.Geom
 			rotation = 0;
 			x = 0;
 			y = 0;
+			_prevRotation = -1000;
 		}
 		
 		// --------------------------------------------------------------
@@ -53,41 +57,24 @@ namespace Poncho.Geom
 		}
 		
 		// --------------------------------------------------------------
-		public void GetPositions( ref float x, ref float y )
+		private void UpdateSineAndCosine()
 		{
+			if(_prevRotation == rotation) return;
+			
+			_prevRotation = rotation;
 			double r = rotation * Math.PI / 180;
-			float c = (float)Math.Cos(r);
-			float s = (float)Math.Sin(r);
-			float ox = x;
-			float oy = y;
-			x = ((ox * c * scaleX) - (oy * s * scaleY));
-			y = ((oy * c * scaleY) + (ox * s * scaleX));
+			_cos = (float)Math.Cos(r);
+			_sin = (float)Math.Sin(r);
 		}
 		
 		// --------------------------------------------------------------
-		public Transforms Concatenate(Transforms t)
+		public void GetPositions( ref float x, ref float y )
 		{
-			Transforms copy = t.Clone();
-			
-			GetPositions(ref copy.x, ref copy.y);
-
-			// translate
-			copy.x += x;
-			copy.y += y;
-				
-			// rotate
-			double r = copy.rotation * Math.PI / 180;
-			float c = (float)Math.Cos(r);
-			float s = (float)Math.Sin(r);
-			c *= scaleY;
-			s *= scaleX;
-			copy.rotation = rotation + (float)(Math.Atan2(s, c) * 180 / Math.PI);
-
-			// scale
-			copy.scaleX *= scaleX;
-			copy.scaleY *= scaleY;
-
-			return copy;
+			UpdateSineAndCosine();
+			float ox = x;
+			float oy = y;
+			x = ((ox * _cos * scaleX) - (oy * _sin * scaleY));
+			y = ((oy * _cos * scaleY) + (ox * _sin * scaleX));
 		}
 	}
 }

@@ -12,6 +12,8 @@ namespace Poncho.Display
 		public float scaleX { get { return transforms.scaleX; } set { transforms.scaleX = value; } }
 		public float scaleY { get { return transforms.scaleY; } set { transforms.scaleY = value; } }
 		public float rotation { get { return transforms.rotation; } set { transforms.rotation = value; } }
+		public int imageWidth { get { return image != null ? image.rect.width : 0; } }
+		public int imageHeight { get { return image != null ? image.rect.height : 0; } }
 		public ITextureImage image;
 		public DisplayObject parent { get; internal set; }
 		

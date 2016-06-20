@@ -4,11 +4,11 @@
 	{
 		public int x { get; }
 		public int y { get; }
-		public uint width { get; }
-		public uint height { get; }
+		public ushort width { get; }
+		public ushort height { get; }
 		
 		// --------------------------------------------------------------
-		public ImageRect(int x, int y, uint width, uint height)
+		public ImageRect(int x, int y, ushort width, ushort height)
 		{
 			this.x = x;
 			this.y = y;
