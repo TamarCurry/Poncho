@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 
 namespace Poncho.Geom
 {
@@ -67,7 +67,6 @@ namespace Poncho.Geom
 		// --------------------------------------------------------------
 		public Transforms Concatenate(Transforms t)
 		{
-			// TODO - Fix this, needs to be more efficient
 			Transforms copy = t.Clone();
 			
 			GetPositions(ref copy.x, ref copy.y);
@@ -89,16 +88,6 @@ namespace Poncho.Geom
 			copy.scaleY *= scaleY;
 
 			return copy;
-		}
-		
-		// --------------------------------------------------------------
-		public Matrix ToMatrix()
-		{
-			Matrix m = new Matrix();
-			m.Translate(x, y);
-			m.Scale(scaleX, scaleY);
-			m.Rotate(rotation * Math.PI / 180);
-			return m;
 		}
 	}
 }
