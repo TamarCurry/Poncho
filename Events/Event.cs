@@ -6,6 +6,7 @@ namespace Poncho.Events
 		public string type { get; private set; }
 		public EventDispatcher target { get; internal set; }
 		public EventDispatcher currentTarget { get; internal set; }
+		public EventPhase eventPhase { get; internal set; }
 		internal Propagation propagation { get; private set; }
 		
 		// --------------------------------------------------------------

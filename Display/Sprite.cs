@@ -17,7 +17,7 @@ namespace Poncho.Display
 		public DisplayObject parent { get; internal set; }
 		
 		// --------------------------------------------------------------
-		public Sprite() : base()
+		public Sprite()
 		{
 			transforms = new Transforms();
 		}

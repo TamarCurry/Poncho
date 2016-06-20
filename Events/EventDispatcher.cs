@@ -42,7 +42,7 @@ namespace Poncho.Events
 		}
 		
 		// --------------------------------------------------------------
-		protected List<EventDispatcher> GetHierarchy()
+		protected virtual List<EventDispatcher> GetHierarchy()
 		{
 			return new List<EventDispatcher> { this };
 		}
@@ -58,10 +58,11 @@ namespace Poncho.Events
 		{
 			List<EventDispatcher> hierarchy = GetHierarchy();
 			e.target = this;
+			e.eventPhase = EventPhase.CAPTURE_PHASE;
 
 			int count = hierarchy.Count;
 			// capture phase
-			for (int i = 0; i < count; ++i)
+			for (int i = count - 1; i >= 0; --i)
 			{
 				e.currentTarget = hierarchy[i];
 				hierarchy[i].HandleEvent(e, true);
@@ -71,9 +72,10 @@ namespace Poncho.Events
 			
 			// only continue if we can propagate the event
 			if(e.propagation != Propagation.PROPAGATE_ALL) return;
-
+			
+			e.eventPhase = EventPhase.BUBBLING_PHASE;
 			// bubbling phase
-			for (int i = count - 1; i >= 0; --i)
+			for (int i = 0; i < count; ++i)
 			{
 				e.currentTarget = hierarchy[i];
 				hierarchy[i].HandleEvent(e, false);

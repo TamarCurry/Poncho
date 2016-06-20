@@ -69,5 +69,22 @@ namespace Poncho.Display
 		{
 			return _children.ElementAtOrDefault(index);
 		}
+		
+		// --------------------------------------------------------------
+		protected override List<EventDispatcher> GetHierarchy()
+		{
+			List<EventDispatcher> hierarchy = new List<EventDispatcher>();
+			DisplayObject target = this;
+			Sprite sprite = null;
+
+			do
+			{
+				hierarchy.Add(target);
+				sprite = target as Sprite;
+				target = sprite?.parent;
+			} while (target != null);
+
+			return hierarchy;
+		}
 	}
 }
