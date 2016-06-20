@@ -1,2 +1,8 @@
-﻿* Create event system and event dispatchers
-* Create audio management
+* Create audio manager system
+  * Need to be able to control individual and global volumes.
+  * App.PlayMusic - two max with ability to cross fade
+  * App.PlaySfx - multiple instances, up to device limit - 2
+  * App.MusicVolume and App.SfxVolume to control global volume levels
+* Textfield implementation
+  * Use spriteBatch.GraphicsDevice.scissorRectangle and RasterizerState.ScissorTestEnabled to clip bounds, make sure to reset when done.
+  * Use spriteFont.MeasureString to fetch a vector of the width and height. Split words and insert new line where it's too long for the width.
