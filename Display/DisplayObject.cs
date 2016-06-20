@@ -1,19 +1,24 @@
-﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Poncho.Events;
 
 namespace Poncho.Display
 {
-	public class DisplayObject
+	public class DisplayObject : EventDispatcher
 	{
-		public int numChildren { get { return _children.Count; } }
+		public bool visible;
+		public bool clickThrough;
+
 		private List<Sprite> _children;
+
+		public int numChildren { get { return _children.Count; } }
+		public virtual string name { get; set; }
 		
 		// --------------------------------------------------------------
 		public DisplayObject()
 		{
+			visible = true;
+			clickThrough = false;
 			_children = new List<Sprite>();
 		}
 		

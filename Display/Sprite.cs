@@ -1,11 +1,10 @@
-﻿using Poncho.Geom;
+using Poncho.Geom;
 using Poncho.Interfaces;
 
 namespace Poncho.Display
 {
 	public class Sprite : DisplayObject
 	{
-		public string name;
 		public Transforms transforms { get; private set; }
 		public float x { get { return transforms.x; } set { transforms.x = value; } }
 		public float y { get { return transforms.y; } set { transforms.y = value; } }
