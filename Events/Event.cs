@@ -1,8 +1,16 @@
 
+using System.Collections.Generic;
+using System.ComponentModel.Design;
+using System.Linq;
+
 namespace Poncho.Events
 {
 	public class Event
 	{
+		private static List<Event> _activeEvents = new List<Event>();
+
+		public static Event activeEvent { get { return _activeEvents.FirstOrDefault(); } }
+
 		public string type { get; private set; }
 		public EventDispatcher target { get; internal set; }
 		public EventDispatcher currentTarget { get; internal set; }
@@ -29,6 +37,17 @@ namespace Poncho.Events
 		public void StopImmediatePropagation()
 		{
 			propagation = Propagation.PROPAGATE_NONE;
+		}
+		
+		// --------------------------------------------------------------
+		internal static void AddEvent(Event e)
+		{
+			_activeEvents.Insert(0, e);
+		}
+
+		internal static void RemoveLastEvent()
+		{
+			if(_activeEvents.Count > 0) _activeEvents.RemoveAt(0);
 		}
 	}
 }

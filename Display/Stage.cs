@@ -7,7 +7,7 @@ namespace Poncho.Display
 		public override string name {get { return "stage"; }}
 
 		// --------------------------------------------------------------
-		public Stage() : base()
+		public Stage()
 		{
 			if(instance != null) { }
 			instance = this;

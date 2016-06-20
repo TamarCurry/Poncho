@@ -8,7 +8,7 @@ namespace Poncho.Events
 	{
 		private class EventCallback
 		{
-			public EventDelegate listener;
+			public Action listener;
 			public int priority;
 		}
 
@@ -35,7 +35,7 @@ namespace Poncho.Events
 		}
 		
 		// --------------------------------------------------------------
-		public void Add(EventDelegate listener, bool useCapture, int priority)
+		public void Add(Action listener, bool useCapture, int priority)
 		{
 			List<EventCallback> list = useCapture ? _captureList : _bubbleList;
 
@@ -52,7 +52,7 @@ namespace Poncho.Events
 		}
 		
 		// --------------------------------------------------------------
-		public void Remove(EventDelegate listener, bool useCapture)
+		public void Remove(Action listener, bool useCapture)
 		{
 			List<EventCallback> list = useCapture ? _captureList : _bubbleList;
 
@@ -75,7 +75,7 @@ namespace Poncho.Events
 			{
 				if(e.propagation != Propagation.PROPAGATE_NONE)
 				{
-					list[i].listener(e);
+					list[i].listener();
 				}
 			}
 		}
