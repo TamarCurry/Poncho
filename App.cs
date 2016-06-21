@@ -1,8 +1,9 @@
-﻿using System;
+using System;
 using Poncho.Interfaces;
 using Poncho.Display;
 using Poncho.Framework;
 using Poncho.Geom;
+using Poncho.Text;
 
 namespace Poncho
 {
@@ -47,14 +48,17 @@ namespace Poncho
 		
 		// --------------------------------------------------------------
 		public static void Subscribe(UpdateDelegate onUpdate, bool add) { _app.Subscribe(onUpdate, add); }
-		public static ITextureImage GetImage(string path) { return _app.GetImage(path); }
-		public static ITextureImage GetImage(string path, Pivot pivot) { return _app.GetImage(path, pivot); }
-		public static ITextureImage GetImage(string path, string name) { return _app.GetImage(path, name); }
-		public static ITextureImage GetImage(string path, ImageRect rect) { return _app.GetImage(path, rect); }
-		public static ITextureImage GetImage(string path, string name, Pivot pivot) { return _app.GetImage(path, name, pivot); }
-		public static ITextureImage GetImage(string path, ImageRect rect, Pivot pivot) { return _app.GetImage(path, rect, pivot); }
-		public static ITextureImage GetImage(string path, string name, ImageRect rect) { return _app.GetImage(path, name, rect); }
-		public static ITextureImage GetImage(string path, string name, ImageRect rect, Pivot pivot) { return _app.GetImage(path, name, rect, pivot); }
+		public static Image GetImage(string path) { return _app.GetImage(path); }
+		public static Image GetImage(string path, Pivot pivot) { return _app.GetImage(path, pivot); }
+		public static Image GetImage(string path, string name) { return _app.GetImage(path, name); }
+		public static Image GetImage(string path, ImageRect rect) { return _app.GetImage(path, rect); }
+		public static Image GetImage(string path, string name, Pivot pivot) { return _app.GetImage(path, name, pivot); }
+		public static Image GetImage(string path, ImageRect rect, Pivot pivot) { return _app.GetImage(path, rect, pivot); }
+		public static Image GetImage(string path, string name, ImageRect rect) { return _app.GetImage(path, name, rect); }
+		public static Image GetImage(string path, string name, ImageRect rect, Pivot pivot) { return _app.GetImage(path, name, rect, pivot); }
+		public static TextFormat GetTextFormat(string path, ushort size){ return _app.GetTextFormat(path, size); }
+		public static TextFormat GetTextFormat(string path, string name, ushort size){ return _app.GetTextFormat(path, name, size); }
+		
 		#endregion
 	}
 }
