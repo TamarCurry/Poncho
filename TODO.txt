@@ -1,9 +1,10 @@
-* Create audio manager system
-  * Need to be able to control individual and global volumes.
-  * App.PlayMusic - two max with ability to cross fade
-  * App.PlaySfx - multiple instances, up to device limit - 2
-  * App.MusicVolume and App.SfxVolume to control global volume levels
-* Textfield implementation
+* Display:
+  * Extend Image class specific to MonoGame that contains a direct reference to the texture it uses for performance reasons.
+* Audio:
+  * Apparently, missing OpenAL.dll, so I can't reliably test sound yet...need to fix this
+  * Implement usage of AudioParams
+* Text:
+  * Extend TextFormat class specific to MonoGame that contains a direct reference to the sprite font it uses for performance reasons.
   * Use spriteBatch.GraphicsDevice.scissorRectangle and RasterizerState.ScissorTestEnabled to clip bounds, make sure to reset when done.
   * Use spriteFont.MeasureString to fetch a vector of the width and height. Split words and insert new line where it's too long for the width.
   * Fields:

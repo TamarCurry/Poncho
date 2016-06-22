@@ -21,6 +21,8 @@ namespace Poncho
 		public static int fpsInterval { get { return _app.fpsInterval; } set { _app.fpsInterval = value; } }
 		public static float deltaTime { get { return _app.deltaTime; } }
 		public static Stage stage { get { return _app.stage; } }
+		public static IAppImages images { get { return _app.images; } }
+		public static IAppAudio audio { get { return _app.audio; } }
 		#endregion
 
 		#region METHODS
@@ -48,17 +50,11 @@ namespace Poncho
 		
 		// --------------------------------------------------------------
 		public static void Subscribe(UpdateDelegate onUpdate, bool add) { _app.Subscribe(onUpdate, add); }
-		public static Image GetImage(string path) { return _app.GetImage(path); }
-		public static Image GetImage(string path, Pivot pivot) { return _app.GetImage(path, pivot); }
-		public static Image GetImage(string path, string name) { return _app.GetImage(path, name); }
-		public static Image GetImage(string path, ImageRect rect) { return _app.GetImage(path, rect); }
-		public static Image GetImage(string path, string name, Pivot pivot) { return _app.GetImage(path, name, pivot); }
-		public static Image GetImage(string path, ImageRect rect, Pivot pivot) { return _app.GetImage(path, rect, pivot); }
-		public static Image GetImage(string path, string name, ImageRect rect) { return _app.GetImage(path, name, rect); }
-		public static Image GetImage(string path, string name, ImageRect rect, Pivot pivot) { return _app.GetImage(path, name, rect, pivot); }
 		public static TextFormat GetTextFormat(string path, ushort size){ return _app.GetTextFormat(path, size); }
 		public static TextFormat GetTextFormat(string path, string name, ushort size){ return _app.GetTextFormat(path, name, size); }
 		
+
+
 		#endregion
 	}
 }

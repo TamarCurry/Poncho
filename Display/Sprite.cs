@@ -1,5 +1,4 @@
 using Poncho.Geom;
-using Poncho.Interfaces;
 
 namespace Poncho.Display
 {

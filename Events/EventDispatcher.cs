@@ -1,9 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Poncho.Framework;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Poncho.Events
 {
