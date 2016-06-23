@@ -1,14 +1,23 @@
 using System.Collections.Generic;
-using System.Linq;
 using Poncho.Events;
 using Poncho.Geom;
 
 namespace Poncho.Display
 {
+	/// <summary>
+	/// Represents an object that can be rendered to the screen.
+	/// </summary>
 	public class DisplayObject : EventDispatcher
 	{
+		/// <summary>
+		/// Toggles the DisplayObject's visibility.
+		/// </summary>
 		public bool visible;
-		public bool clickThrough;
+
+		/// <summary>
+		/// 
+		/// </summary>
+		public bool mouseEnabled;
 
 		internal bool parentable;
 		
@@ -26,7 +35,7 @@ namespace Poncho.Display
 		{
 			visible = true;
 			parentable = true;
-			clickThrough = false;
+			mouseEnabled = true;
 			transforms = new Transforms();
 		}
 		

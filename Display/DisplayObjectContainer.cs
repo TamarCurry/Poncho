@@ -7,11 +7,13 @@ namespace Poncho.Display
 	{
 		private List<DisplayObject> _children;
 
+		public bool mouseChildren;
 		public int numChildren { get { return _children.Count; } }
 		
 		// --------------------------------------------------------------
 		public DisplayObjectContainer()
 		{
+			mouseChildren = true;
 			_children = new List<DisplayObject>();
 		}
 
