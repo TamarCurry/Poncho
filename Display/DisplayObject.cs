@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Poncho.Events;
+using Poncho.Geom;
 
 namespace Poncho.Display
 {
@@ -9,65 +10,34 @@ namespace Poncho.Display
 		public bool visible;
 		public bool clickThrough;
 
-		private List<Sprite> _children;
-
-		public int numChildren { get { return _children.Count; } }
-		public virtual string name { get; set; }
+		internal bool parentable;
 		
+		public virtual string name { get; set; }
+		public Transforms transforms { get; private set; }
+		public float x { get { return transforms.x; } set { transforms.x = value; } }
+		public float y { get { return transforms.y; } set { transforms.y = value; } }
+		public float scaleX { get { return transforms.scaleX; } set { transforms.scaleX = value; } }
+		public float scaleY { get { return transforms.scaleY; } set { transforms.scaleY = value; } }
+		public float rotation { get { return transforms.rotation; } set { transforms.rotation = value; } }
+		public DisplayObjectContainer parent { get; internal set; }
+
 		// --------------------------------------------------------------
 		public DisplayObject()
 		{
 			visible = true;
+			parentable = true;
 			clickThrough = false;
-			_children = new List<Sprite>();
+			transforms = new Transforms();
 		}
 		
 		// --------------------------------------------------------------
-		public Sprite AddChild(Sprite child) {
-			child.RemoveFromDisplay();
-			_children.Add(child);
-			child.parent = this;
-			return child;
-		}
-		
-		// --------------------------------------------------------------
-		public Sprite RemoveChild(Sprite child) {
-			int index = _children.IndexOf(child);
-			if(index > -1) {
-				_children.RemoveAt(index);
-				child.parent = null;
-			}
-			return child;
-		}
-		
-		// --------------------------------------------------------------
-		public Sprite AddChildAt(Sprite child, int index)
+		public void RemoveFromDisplay()
 		{
-			child.RemoveFromDisplay();
-			if(index < _children.Count)
+			if(parent != null)
 			{
-				_children.Insert(index, child);
-				child.parent = this;
+				parent.RemoveChild(this);
+				parent = null;
 			}
-			return child;
-		}
-		
-		// --------------------------------------------------------------
-		public Sprite RemoveChildAt(int index)
-		{
-			if(index < _children.Count)
-			{
-				Sprite child = _children[index];
-				RemoveChild(child);
-				return child;
-			}
-			return null;
-		}
-		
-		// --------------------------------------------------------------
-		public Sprite GetChildAt(int index)
-		{
-			return _children.ElementAtOrDefault(index);
 		}
 		
 		// --------------------------------------------------------------
@@ -75,13 +45,11 @@ namespace Poncho.Display
 		{
 			List<EventDispatcher> hierarchy = new List<EventDispatcher>();
 			DisplayObject target = this;
-			Sprite sprite = null;
 
 			do
 			{
 				hierarchy.Add(target);
-				sprite = target as Sprite;
-				target = sprite?.parent;
+				target = target.parent;
 			} while (target != null);
 
 			return hierarchy;

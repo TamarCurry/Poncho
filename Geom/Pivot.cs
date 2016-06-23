@@ -1,11 +1,11 @@
-﻿namespace Poncho.Geom
+namespace Poncho.Geom
 {
 	public class Pivot
 	{
-		public float x { get; }
-		public float y { get; }
+		public ushort x { get; }
+		public ushort y { get; }
 
-		public Pivot(float x, float y)
+		public Pivot(ushort x, ushort y)
 		{
 			this.x = x;
 			this.y = y;

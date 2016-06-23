@@ -1,6 +1,6 @@
 namespace Poncho.Display
 {
-	public class Stage : DisplayObject
+	public class Stage : DisplayObjectContainer
 	{
 		public static Stage instance { get; private set; }
 
@@ -11,6 +11,7 @@ namespace Poncho.Display
 		{
 			if(instance != null) { }
 			instance = this;
+			parentable = false;
 		}
 	}
 }
