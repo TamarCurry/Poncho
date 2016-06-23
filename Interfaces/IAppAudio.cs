@@ -1,3 +1,5 @@
+using Poncho.Audio;
+
 namespace Poncho.Interfaces
 {
 	public interface IAppAudio
@@ -11,24 +13,12 @@ namespace Poncho.Interfaces
 		void StopMusic();
 		void StopSfx();
 		void StopAll();
-
 		void LoadAudio(string path, string name);
-
-		void PlayMusic(string name, float volume = 1, float endVolume = 1, int fadeTimeMs = 0,
-			float pan = 0, float pitch = 0);
-
-		void PlayMusic(string path, string name, float volume = 1, float endVolume = 1, int fadeTimeMs = 0,
-			float pan = 0, float pitch = 0);
-
-		void CrossfadeMusic(string name, int fadeTimeMs, float endVolume = 1, float pan = 0, float pitch = 0);
-
-		void CrossfadeMusic(string path, string name, int fadeTimeMs, float endVolume = 1, float pan = 0, float pitch = 0);
-
-		void PlaySfx(string path, string name, float volume = 1, float endVolume = 1, int fadeTimeMs = 0,
-			float pan = 0, float pitch = 0, int timeUntilPlayAgain = 100);
-
-		void PlaySfx(string name, float volume = 1, float endVolume = 1, int fadeTimeMs = 0, float pan = 0, float pitch = 0,
-			int timeUntilPlayAgain = 100);
-
+		AudioSettings PlayMusic(string name);
+		AudioSettings PlayMusic(string path, string name);
+		AudioSettings PlaySfx(string name);
+		AudioSettings PlaySfx(string path, string name);
+		AudioSettings CrossfadeMusic(string name, int durationMs);
+		AudioSettings CrossfadeMusic(string path, string name, int durationMs);
 	}
 }

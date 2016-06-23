@@ -2,7 +2,6 @@ using System;
 using Poncho.Interfaces;
 using Poncho.Display;
 using Poncho.Framework;
-using Poncho.Geom;
 using Poncho.Text;
 
 namespace Poncho
