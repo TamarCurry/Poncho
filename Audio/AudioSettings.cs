@@ -1,5 +1,3 @@
-using Poncho;
-
 namespace Poncho.Audio
 {
 	public class AudioSettings
@@ -23,7 +21,7 @@ namespace Poncho.Audio
 
 		public float volume
 		{
-			get { return GetValue(startVolume, endVolume, fadeElapsedMs, fadeDurationMs); }
+			get { return GetValue(startVolume, endVolume, 0, 1, fadeElapsedMs, fadeDurationMs); }
 			set {
 				endVolume = value;
 				if (endVolume < 0) endVolume = 0;
@@ -34,7 +32,7 @@ namespace Poncho.Audio
 
 		public float pan
 		{
-			get { return GetValue(startPan, endPan, panElapsedMs, panDurationMs); }
+			get { return GetValue(startPan, endPan, -1, 1, panElapsedMs, panDurationMs); }
 			set
 			{
 				endPan = value;
@@ -46,7 +44,7 @@ namespace Poncho.Audio
 		
 		public float pitch
 		{
-			get { return GetValue(startPitch, endPitch, pitchElapsedMs, pitchDurationMs); }
+			get { return GetValue(startPitch, endPitch, -1, 1, pitchElapsedMs, pitchDurationMs); }
 			set
 			{
 				endPitch = value;
@@ -88,8 +86,7 @@ namespace Poncho.Audio
 			fadeElapsedMs		+= elapasedMs;
 			pitchElapsedMs		+= elapasedMs;
 			panElapsedMs		+= elapasedMs;
-			timeUntilRepeatMs	-= elapasedMs;
-			if (timeUntilRepeatMs < 0) timeUntilRepeatMs = 0;
+			timeUntilRepeatMs	= timeUntilRepeatMs - elapasedMs > 0 ? timeUntilRepeatMs - elapasedMs : 0;
 		}
 		
 		// --------------------------------------------------------------
@@ -105,13 +102,13 @@ namespace Poncho.Audio
 		// --------------------------------------------------------------
 		public AudioSettings fadeTo(float endVolume, int durationMs)
 		{
-			return fadeAudio(volume, endVolume, fadeDurationMs);
+			return fadeAudio(volume, endVolume, durationMs);
 		}
 		
 		// --------------------------------------------------------------
 		public AudioSettings fadeFrom(float startVolume, int durationMs)
 		{
-			return fadeAudio(startVolume, volume, fadeDurationMs);
+			return fadeAudio(startVolume, volume, durationMs);
 		}
 		
 		// --------------------------------------------------------------
@@ -166,12 +163,14 @@ namespace Poncho.Audio
 		}
 
 		// --------------------------------------------------------------
-		private float GetValue(float start, float target, int elapsed, int duration)
+		private float GetValue(float start, float target, float min, float max, int elapsed, int duration)
 		{
-			float min = start < target ? start : target;
-			float max = start < target ? target : start;
+			float diff = target - start;
 			float percent = elapsed < duration ? (elapsed*1f/duration) : 1;
-			return min + ((max - min)*percent);
+			float value = start+(diff*percent);
+			if(value < min) value = min;
+			if(value > max) value = max;
+			return value;
 		}
 	}
 }
