@@ -1,10 +1,22 @@
 using Poncho.Display;
 using Poncho.Geom;
 
+
 namespace Poncho.Interfaces
 {
+	/// <summary>
+	/// Interface for a class that loads textures and returns Image instances.
+	/// </summary>
 	public interface IAppImages
 	{
+		/// <summary>
+		/// Retrieves an image for the specified texture.
+		/// </summary>
+		/// <param name="path"></param>
+		/// <param name="name"></param>
+		/// <param name="pivot"></param>
+		/// <param name="rect"></param>
+		/// <returns></returns>
 		Image GetImage(string path);
 		Image GetImage(string path, Pivot pivot);
 		Image GetImage(string path, PivotF pivot);
