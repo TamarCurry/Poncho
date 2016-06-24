@@ -1,6 +1,3 @@
-using System.Collections.Generic;
-using System.Linq;
-
 namespace Poncho.Events
 {
 	/// <summary>
@@ -12,32 +9,40 @@ namespace Poncho.Events
 	/// </summary>
 	public class Event
 	{
-		#region MEMBERS
-		/// <summary>
-		/// List of active events that have been dispatched.
-		/// </summary>
-		private static List<Event> _activeEvents = new List<Event>();
-
-		#endregion
-
 		#region GETTERS & SETTERS
-		
 		/// <summary>
-		/// The most recent event to be dispatched.
+		/// The type of event being dispatched.
 		/// </summary>
-		public static Event activeEvent { get { return _activeEvents.FirstOrDefault(); } }
-
 		public string type { get; private set; }
+
+		/// <summary>
+		/// The phase the event this is in. Should be either EventPhase.CAPTURE or EventPhase.BUBBLING.
+		/// </summary>
 		public EventPhase eventPhase { get; internal set; }
+
+		/// <summary>
+		/// The original dispatcher of the event.
+		/// </summary>
 		public EventDispatcher target { get; internal set; }
+
+		/// <summary>
+		/// The current target of the event.
+		/// </summary>
 		public EventDispatcher currentTarget { get; internal set; }
 
+		/// <summary>
+		/// Controls if and how the event propagates.
+		/// </summary>
 		internal Propagation propagation { get; private set; }
 
 		#endregion
 
 		#region METHODS
 		// --------------------------------------------------------------
+		/// <summary>
+		/// Constructor.
+		/// </summary>
+		/// <param name="type"></param>
 		public Event(string type)
 		{
 			this.type = type;
@@ -45,6 +50,9 @@ namespace Poncho.Events
 		}
 		
 		// --------------------------------------------------------------
+		/// <summary>
+		/// Stops propagation after all of the current target's listeners for this event are finished.
+		/// </summary>
 		public void StopPropagation()
 		{
 			if (propagation == Propagation.PROPAGATE_ALL)
@@ -54,6 +62,9 @@ namespace Poncho.Events
 		}
 		
 		// --------------------------------------------------------------
+		/// <summary>
+		/// Stops propagation immediately. No more event listeners will catch this event.
+		/// </summary>
 		public void StopImmediatePropagation()
 		{
 			propagation = Propagation.PROPAGATE_NONE;
