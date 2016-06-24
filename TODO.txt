@@ -1,7 +1,5 @@
-* Display:
-  * Add reference to the stage. Set to null if the display object isn't in the display list.
+* Masking
 * Text:
-  * Use spriteBatch.GraphicsDevice.scissorRectangle and RasterizerState.ScissorTestEnabled to clip bounds, make sure to reset when done.
   * Use spriteFont.MeasureString to fetch a vector of the width and height. Split words and insert new line where it's too long for the width.
   * Fields:
     * text

@@ -9,7 +9,7 @@ namespace Poncho.Display
 	/// </summary>
 	public class DisplayObject : EventDispatcher
 	{
-		#region GETTERS & SETTERS
+		#region MEMBERS
 		/// <summary>
 		/// Toggles the DisplayObject's visibility.
 		/// </summary>
@@ -19,12 +19,33 @@ namespace Poncho.Display
 		/// Toggles whether or not mouse interactivity is enabled.
 		/// </summary>
 		public bool mouseEnabled;
+		
+		#endregion
+
+		#region GETTERS & SETTERS
 
 		/// <summary>
 		/// Indicates whether or not this DisplayObject can be added as a child to a DisplayObjectContainer
 		/// </summary>
 		internal virtual bool parentable { get { return true; } }
-		
+
+		/// <summary>
+		/// Indicates whether or not this DisplayObject is currently on the stage.
+		/// </summary>
+		public bool onStage
+		{
+			get
+			{
+				DisplayObject target = this;
+				while (target != null)
+				{
+					if (target == Stage.instance) return true;
+					target = target.parent;
+				}
+				return false;
+			}
+		}
+
 		/// <summary>
 		/// Name of the DisplayObject,
 		/// </summary>
