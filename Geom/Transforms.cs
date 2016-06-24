@@ -1,17 +1,59 @@
-﻿using System;
+using System;
 
 namespace Poncho.Geom
 {
+	/// <summary>
+	/// The Transforms class holds on to positioning, rotation, and scaling values.
+	/// </summary>
 	public class Transforms
 	{
-		private float _rotation;
-		private float _prevRotation;
-		private float _sin;
-		private float _cos;
-		public float scaleX;
-		public float scaleY;
+		#region MEMBERS
+		/// <summary>
+		/// X coordinate.
+		/// </summary>
 		public float x;
+
+		/// <summary>
+		/// Y coordinate.
+		/// </summary>
 		public float y;
+
+		/// <summary>
+		/// Horizontal scaling.
+		/// </summary>
+		public float scaleX;
+
+		/// <summary>
+		/// Vertical scaling.
+		/// </summary>
+		public float scaleY;
+
+		/// <summary>
+		/// Rotational scaling.
+		/// </summary>
+		private float _rotation;
+
+		/// <summary>
+		/// Previous rotation value.
+		/// </summary>
+		private float _prevRotation;
+
+		/// <summary>
+		/// Cached sine value of the rotation.
+		/// </summary>
+		private float _sin;
+
+		/// <summary>
+		/// Cached cosine value of the rotation.
+		/// </summary>
+		private float _cos;
+
+		#endregion
+
+		#region GETTERS & SETTERS
+		/// <summary>
+		/// Current rotation of this transform. Rotation ranges from 180 degrees to -180 degrees.
+		/// </summary>
 		public float rotation {
 			get { return _rotation; }
 			set
@@ -26,14 +68,23 @@ namespace Poncho.Geom
 				}
 			}
 		}
-		
+
+		#endregion
+
+		#region METHODS
 		// --------------------------------------------------------------
+		/// <summary>
+		/// Constructor.
+		/// </summary>
 		public Transforms()
 		{
 			Identity();
 		}
 		
 		// --------------------------------------------------------------
+		/// <summary>
+		/// Resets all properties to their default values.
+		/// </summary>
 		public void Identity()
 		{
 			scaleX = 1;
@@ -45,6 +96,10 @@ namespace Poncho.Geom
 		}
 		
 		// --------------------------------------------------------------
+		/// <summary>
+		/// Creates a clone of this Transforms.
+		/// </summary>
+		/// <returns></returns>
 		public Transforms Clone()
 		{
 			Transforms copy = new Transforms();
@@ -57,6 +112,9 @@ namespace Poncho.Geom
 		}
 		
 		// --------------------------------------------------------------
+		/// <summary>
+		/// Updates the sine and cosine values for the rotation.
+		/// </summary>
 		private void UpdateSineAndCosine()
 		{
 			if(_prevRotation == rotation) return;
@@ -68,6 +126,11 @@ namespace Poncho.Geom
 		}
 		
 		// --------------------------------------------------------------
+		/// <summary>
+		/// Sets the provided x and y values to what position they would be at once transforms are applied.
+		/// </summary>
+		/// <param name="x"></param>
+		/// <param name="y"></param>
 		public void GetPositions( ref float x, ref float y )
 		{
 			UpdateSineAndCosine();
@@ -76,5 +139,7 @@ namespace Poncho.Geom
 			x = ((ox * _cos * scaleX) - (oy * _sin * scaleY));
 			y = ((oy * _cos * scaleY) + (ox * _sin * scaleX));
 		}
+		
+		#endregion
 	}
 }
