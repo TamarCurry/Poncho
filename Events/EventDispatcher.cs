@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Poncho.Framework;
 
 namespace Poncho.Events
 {
@@ -14,7 +15,7 @@ namespace Poncho.Events
 		}
 		
 		// --------------------------------------------------------------
-		public void AddEventListener(string type, Action listener, bool useCapture = false, int priority = 0)
+		public void AddEventListener(string type, EventDelegate listener, bool useCapture = false, int priority = 0)
 		{
 			EventManager em = null;
 			if (_managers.ContainsKey(type))
@@ -31,7 +32,7 @@ namespace Poncho.Events
 		}
 		
 		// --------------------------------------------------------------
-		public void RemoveEventListener(string type, Action listener, bool useCapture)
+		public void RemoveEventListener(string type, EventDelegate listener, bool useCapture)
 		{
 			if(!_managers.ContainsKey(type)) return;
 			_managers[type].Remove(listener, useCapture);
@@ -52,8 +53,6 @@ namespace Poncho.Events
 		// --------------------------------------------------------------
 		public void DispatchEvent(Event e)
 		{
-			Event.AddEvent(e);
-
 			List<EventDispatcher> hierarchy = GetHierarchy();
 			e.target = this;
 			e.eventPhase = EventPhase.CAPTURE_PHASE;
@@ -80,8 +79,6 @@ namespace Poncho.Events
 				if (e.propagation == Propagation.PROPAGATE_REMAINDER) break;
 				if(e.propagation == Propagation.PROPAGATE_NONE) return;
 			}
-
-			Event.RemoveLastEvent();
 		}
 
 		// --------------------------------------------------------------

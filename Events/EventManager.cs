@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Poncho.Framework;
 
 namespace Poncho.Events
 {
@@ -7,7 +8,7 @@ namespace Poncho.Events
 	{
 		private class EventCallback
 		{
-			public Action listener;
+			public EventDelegate listener;
 			public int priority;
 		}
 
@@ -34,7 +35,7 @@ namespace Poncho.Events
 		}
 		
 		// --------------------------------------------------------------
-		public void Add(Action listener, bool useCapture, int priority)
+		public void Add(EventDelegate listener, bool useCapture, int priority)
 		{
 			List<EventCallback> list = useCapture ? _captureList : _bubbleList;
 
@@ -51,7 +52,7 @@ namespace Poncho.Events
 		}
 		
 		// --------------------------------------------------------------
-		public void Remove(Action listener, bool useCapture)
+		public void Remove(EventDelegate listener, bool useCapture)
 		{
 			List<EventCallback> list = useCapture ? _captureList : _bubbleList;
 
@@ -74,7 +75,7 @@ namespace Poncho.Events
 			{
 				if(e.propagation != Propagation.PROPAGATE_NONE)
 				{
-					list[i].listener();
+					list[i].listener(e);
 				}
 			}
 		}

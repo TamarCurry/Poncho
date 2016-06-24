@@ -3,18 +3,40 @@ using System.Linq;
 
 namespace Poncho.Events
 {
+	/// <summary>
+	/// An Event is a way of broadcasting when something has happened.
+	/// EventDispatchers can listen for a variety of events and take action depending on the type of event and its parameters.
+	/// Events can be dispatched by calling DispatchEvent on an EventDispatcher instance.
+	/// Listen for events by calling EventDispatcher::AddEventListener.
+	/// Stop listening for events by calling EventDispatcher::RemoveEventListener.
+	/// </summary>
 	public class Event
 	{
+		#region MEMBERS
+		/// <summary>
+		/// List of active events that have been dispatched.
+		/// </summary>
 		private static List<Event> _activeEvents = new List<Event>();
 
+		#endregion
+
+		#region GETTERS & SETTERS
+		
+		/// <summary>
+		/// The most recent event to be dispatched.
+		/// </summary>
 		public static Event activeEvent { get { return _activeEvents.FirstOrDefault(); } }
 
 		public string type { get; private set; }
+		public EventPhase eventPhase { get; internal set; }
 		public EventDispatcher target { get; internal set; }
 		public EventDispatcher currentTarget { get; internal set; }
-		public EventPhase eventPhase { get; internal set; }
+
 		internal Propagation propagation { get; private set; }
-		
+
+		#endregion
+
+		#region METHODS
 		// --------------------------------------------------------------
 		public Event(string type)
 		{
@@ -37,15 +59,6 @@ namespace Poncho.Events
 			propagation = Propagation.PROPAGATE_NONE;
 		}
 		
-		// --------------------------------------------------------------
-		internal static void AddEvent(Event e)
-		{
-			_activeEvents.Insert(0, e);
-		}
-
-		internal static void RemoveLastEvent()
-		{
-			if(_activeEvents.Count > 0) _activeEvents.RemoveAt(0);
-		}
+		#endregion
 	}
 }

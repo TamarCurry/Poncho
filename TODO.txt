@@ -11,6 +11,3 @@
 	* height
 	* multiline
 	* wordWrap
-* EventDispatching:
-  * Handle removal of events when an error has occured.
-  * Handle removal of listeners part way through an event being dispatched.
