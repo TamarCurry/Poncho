@@ -62,12 +62,36 @@ namespace Poncho.Events
 		/// <param name="type"></param>
 		/// <param name="listener"></param>
 		/// <param name="useCapture"></param>
-		public void RemoveEventListener(string type, EventDelegate listener, bool useCapture)
+		public void RemoveEventListener(string type, EventDelegate listener, bool useCapture=false)
 		{
 			if(!_managers.ContainsKey(type)) return;
 			_managers[type].Remove(listener, useCapture);
 		}
 		
+		// --------------------------------------------------------------
+		/// <summary>
+		/// Removes listeners of the specified type.
+		/// </summary>
+		/// <param name="type"></param>
+		/// <param name="useCapture"></param>
+		public void RemoveListeners(string type, bool useCapture=false)
+		{
+			if(!_managers.ContainsKey(type)) return;
+			_managers[type].Remove(useCapture);
+		}
+
+		// --------------------------------------------------------------
+		/// <summary>
+		/// Removes all listeners.
+		/// </summary>
+		public void RemoveAllListeners()
+		{
+			foreach (KeyValuePair<string, EventManager> eventManager in _managers)
+			{
+				eventManager.Value.RemoveAll();
+			}
+		}
+
 		// --------------------------------------------------------------
 		/// <summary>
 		/// Helper function for easily adding or removing event listeners.

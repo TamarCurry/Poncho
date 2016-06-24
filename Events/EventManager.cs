@@ -126,6 +126,20 @@ namespace Poncho.Events
 		}
 		
 		// --------------------------------------------------------------
+		public void Remove(bool useCapture)
+		{
+			List<EventCallback> list = useCapture ? _captureList : _bubbleList;
+			list.Clear();
+		}
+
+		// --------------------------------------------------------------
+		public void RemoveAll()
+		{
+			_captureList.Clear();
+			_bubbleList.Clear();
+		}
+
+		// --------------------------------------------------------------
 		/// <summary>
 		/// Passes an event to the appropriate listeners.
 		/// </summary>
