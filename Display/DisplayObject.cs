@@ -82,6 +82,7 @@ namespace Poncho.Display
 		/// </summary>
 		public float rotation { get { return transforms.rotation; } set { transforms.rotation = value; } }
 		
+		public float alpha { get { return transforms.colorTransform.alpha; } set { transforms.colorTransform.alpha = value; } }
 		/// <summary>
 		/// The DisplayObject's parent.
 		/// </summary>

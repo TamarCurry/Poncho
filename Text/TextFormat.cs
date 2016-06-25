@@ -12,6 +12,11 @@ namespace Poncho.Text
 		public ushort size { get; private set; }
 
 		/// <summary>
+		/// Color of the text in RGB format.
+		/// </summary>
+		public uint color { get; set; }
+
+		/// <summary>
 		/// The font to use in the text field.
 		/// </summary>
 		public string font { get; private set; }

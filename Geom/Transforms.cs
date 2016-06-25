@@ -48,6 +48,11 @@ namespace Poncho.Geom
 		/// </summary>
 		private float _cos;
 
+		/// <summary>
+		/// 
+		/// </summary>
+		private ColorTransform _colorTransform;
+
 		#endregion
 
 		#region GETTERS & SETTERS
@@ -68,6 +73,15 @@ namespace Poncho.Geom
 				}
 			}
 		}
+		
+		/// <summary>
+		/// Controls the color of display objects rendered to the stage.
+		/// </summary>
+		public ColorTransform colorTransform
+		{
+			get { return _colorTransform; }
+			set { _colorTransform = value ?? new ColorTransform(); }
+		}
 
 		#endregion
 
@@ -78,6 +92,7 @@ namespace Poncho.Geom
 		/// </summary>
 		public Transforms()
 		{
+			_colorTransform = new ColorTransform();
 			Identity();
 		}
 		
